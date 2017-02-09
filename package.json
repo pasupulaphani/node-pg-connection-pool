@@ -1,6 +1,6 @@
 {
   "name": "node-pg-connection-pool",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Connection pool for node-postgres with generic-pool support",
   "main": "index.js",
   "scripts": {
