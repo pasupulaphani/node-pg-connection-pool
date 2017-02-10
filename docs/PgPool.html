@@ -1416,7 +1416,7 @@
 
     
 
-    <h4 class="name" id="query"><span class="type-signature"></span>query<span class="signature">(commandName, commandArgs)</span><span class="type-signature"> &rarr; {promise}</span></h4>
+    <h4 class="name" id="query"><span class="type-signature"></span>query<span class="signature">(queryText, arrayValues)</span><span class="type-signature"> &rarr; {promise}</span></h4>
 
     
 
@@ -1468,7 +1468,7 @@
 
 
 <div class="description">
-    <p>Send Postgres instructions</p>
+    <p>Run Postgres query https://github.com/brianc/node-postgres/wiki/Client#querystring-querytext-array-values-optional-function-callback-query</p>
 </div>
 
 
@@ -1506,7 +1506,7 @@
 
         <tr>
             
-                <td class="name"><code>commandName</code></td>
+                <td class="name"><code>queryText</code></td>
             
 
             <td class="type">
@@ -1522,14 +1522,14 @@
 
             
 
-            <td class="description last"><p>Name of the command</p></td>
+            <td class="description last"><p>sql query</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>commandArgs</code></td>
+                <td class="name"><code>arrayValues</code></td>
             
 
             <td class="type">
@@ -1545,7 +1545,7 @@
 
             
 
-            <td class="description last"><p>Args sent to the command</p></td>
+            <td class="description last"><p>array values</p></td>
         </tr>
 
     
