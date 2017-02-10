@@ -58,7 +58,7 @@
 <pre class="prettyprint source"><code>  var PgPool = require(&quot;node-pg-connection-pool&quot;);
   var pool = new PgPool();
 
-  const result = await pool.query(&quot;SELECT 1&quot;);</code></pre></li>
+  const result = await pool.query(&quot;SELECT 1;&quot;);</code></pre></li>
 <li><p>Want postgres raw connection? you got it</p>
 <pre class="prettyprint source"><code>  pool.acquire()
     .then(client => {
@@ -96,7 +96,16 @@
         <span class="param-type">object</span>
       </td>
       <td class="description last">
-        <p>opts from <a href="https://github.com/brianc/node-postgres/wiki/Client#parameters">node-postgres#options-object-properties</a></p>
+        <p>opts from <a href="https://github.com/brianc/node-postgres/wiki/Client#parameters">node-postgres#client-parameters</a></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="name"><code>pgNative</code></td>
+      <td class="type">
+        <span class="param-type">boolean</span>
+      </td>
+      <td class="description last">
+        <p>Use the native bindings. Install <code>pg-native</code> in your app before setting this to true.</p>
       </td>
     </tr>
     <tr>
