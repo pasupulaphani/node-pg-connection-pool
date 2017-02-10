@@ -1,0 +1,17 @@
+version: '2'
+services:
+  sut:
+    environment:
+      NODE_ENV: development
+      DEBUG: nodePgConnectionPool*
+      DATABASE_URL: postgres://postgres@localhost:5432/test_db
+    build:
+      context: ../
+      dockerfile: ./test/Dockerfile.test
+    command: 'npm test'
+    links:
+      - postgres
+  postgres:
+    image: postgres:9.6-alpine
+    environment:
+      POSTGRES_DB: test_db

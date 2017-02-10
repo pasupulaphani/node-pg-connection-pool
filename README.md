@@ -108,7 +108,7 @@ Simplistic node postgres connection pool ready can scale with generic-pool suppo
 
 ### Run tests
 
-    bash test.sh
+    sh test.sh
 
 ## Contribute
 

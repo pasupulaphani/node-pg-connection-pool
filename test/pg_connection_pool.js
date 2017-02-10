@@ -6,7 +6,7 @@ const PgPool = require("../index");
 describe("PgPool", () => {
 
   const options = {
-    pgOptions: process.env.DATABASE_URL|| "postgres://postgres:badgermushroom@192.168.33.17:5432/ps-api-development"
+    pgOptions: process.env.DATABASE_URL|| "postgres://postgres@localhost:5432/test_db"
   };
 
   describe("acquire", () => {
