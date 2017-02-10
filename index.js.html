@@ -190,18 +190,18 @@ const PgPool = module.exports = function (options) {
 };
 
 /**
- * Send Postgres instructions
+ * Run Postgres query https://github.com/brianc/node-postgres/wiki/Client#querystring-querytext-array-values-optional-function-callback-query
  *
- * @param {string} commandName - Name of the command
- * @param {array}  commandArgs - Args sent to the command
+ * @param {string} queryText - sql query
+ * @param {array}  arrayValues - array values
  * @returns {promise} Promise resolve with the result or Error
  */
-PgPool.prototype.query = function (queryString) {
+PgPool.prototype.query = function (queryText, arrayValues) {
 
   return this.pool.acquire()
     .then(client => {
 
-      return client.query(queryString)
+      return client.query(queryText, arrayValues)
         .then(result => {
 
           this.pool.release(client);
