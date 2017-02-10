@@ -26,7 +26,7 @@ Simplistic node postgres connection pool ready can scale with generic-pool suppo
     var PgPool = require("node-pg-connection-pool");
     var pool = new PgPool();
 
-    const result = await pool.query("SELECT 1;");
+    const result = await pool.query("SELECT $1::int AS number;", ["1"]);
 ```
 
 - Want postgres raw connection? you got it
