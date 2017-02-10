@@ -58,7 +58,7 @@
 <pre class="prettyprint source"><code>  var PgPool = require(&quot;node-pg-connection-pool&quot;);
   var pool = new PgPool();
 
-  const result = await pool.query(&quot;SELECT 1;&quot;);</code></pre></li>
+  const result = await pool.query(&quot;SELECT $1::int AS number;&quot;, [&quot;1&quot;]);</code></pre></li>
 <li><p>Want postgres raw connection? you got it</p>
 <pre class="prettyprint source"><code>  pool.acquire()
     .then(client => {
