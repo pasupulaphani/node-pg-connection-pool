@@ -4,7 +4,7 @@ services:
     environment:
       NODE_ENV: development
       DEBUG: nodePgConnectionPool*
-      DATABASE_URL: postgres://postgres@localhost:5432/test_db
+      DATABASE_URL: postgres://postgres@postgres/test_db
     build:
       context: ../
       dockerfile: ./test/Dockerfile.test
@@ -13,5 +13,7 @@ services:
       - postgres
   postgres:
     image: postgres:9.6-alpine
+    expose:
+      - 5432
     environment:
       POSTGRES_DB: test_db
