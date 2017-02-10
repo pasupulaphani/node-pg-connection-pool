@@ -1,17 +1,21 @@
+services:
+  - postgresql
 language: node_js
 node_js:
   - '4'
   - '5'
   - '6'
   - 'node'
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
 before_install:
   - sudo apt-key adv --keyserver pgp.mit.edu --recv D101F7899D41F3C3
   - echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
   - sudo apt-get update -qq
   - sudo apt-get install -y -qq yarn
 install: yarn
-services:
-  - postgresql
+env:
+  - DATABASE_URL=postgres://postgres@localhost:5432/travis_ci_test
 after_success:
   - npm run lint
   - npm run coveralls
