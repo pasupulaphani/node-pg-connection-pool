@@ -26,7 +26,7 @@ Simplistic node postgres connection pool ready can scale with generic-pool suppo
     var PgPool = require("node-pg-connection-pool");
     var pool = new PgPool();
 
-    const result = await pool.query("SELECT 1");
+    const result = await pool.query("SELECT 1;");
 ```
 
 - Want postgres raw connection? you got it
@@ -72,7 +72,7 @@ Simplistic node postgres connection pool ready can scale with generic-pool suppo
         <span class="param-type">object</span>
       </td>
       <td class="description last">
-        <p>opts from <a href="https://github.com/brianc/node-postgres/wiki/Client#parameters">node-postgres#options-object-properties</a></p>
+        <p>opts from <a href="https://github.com/brianc/node-postgres/wiki/Client#parameters">node-postgres#client-parameters</a></p>
       </td>
     </tr>
     <tr>

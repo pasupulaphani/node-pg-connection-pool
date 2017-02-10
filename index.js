@@ -54,15 +54,6 @@ const create = function (pgOptions) {
   });
 };
 
-const selectDB = function (client, db) {
-  return new Promise((resolve, reject) => {
-    client.select(db, function (err) {
-      if (err) reject(err);
-      debug("DB selected: ", db);
-      resolve(client);
-    });
-  });
-};
 
 /**
  * @constructor
@@ -175,7 +166,7 @@ PgPool.prototype.query = function (queryString) {
  * @param {number} db - Use the db with range {0-16}
  * @returns {promise} Promise resolve with the connection or Error
  */
-PgPool.prototype.acquire = function (priority, db) {
+PgPool.prototype.acquire = function (priority) {
   return this.pool.acquire(priority)
     .then(client => {
 
@@ -184,13 +175,7 @@ PgPool.prototype.acquire = function (priority, db) {
         this.logger.error("Couldn't acquire connection to %j", this.pgOptions);
         throw client;
       }
-
-      if (db) {
-        this.logger.info("select DB:", db);
-        return selectDB(client, db);
-      } else {
-        return client;
-      }
+      return client;
     });
 };
 
