@@ -3,6 +3,7 @@
 const genericPool = require("generic-pool");
 const retry = require("retry-as-promised");
 const pick = require("lodash.pick");
+const url = require("url");
 const pg = require("pg");
 
 const debug = require("debug")("simplePgPool");
@@ -69,10 +70,25 @@ const PgPool = module.exports = function (options) {
   options = pick(options, ["name", "pgOptions", "pgNative", "poolOptions", "logger"]);
 
   this.name = options.name || `pgPool-${Math.random().toString(36).substr(2, 10)}`;
-  this.pgOptions = options.pgOptions;
+
+  this.pgOptions = {};
+  if (typeof options.pgOptions === "string") {
+    const params = url.parse(options.pgOptions, true);
+    const auth = params.auth.split(":");
+    this.pgOptions = {
+      user: auth[0],
+      password: auth[1],
+      host: params.hostname,
+      port: params.port,
+      database: params.pathname.split("/")[1],
+      ssl: params.query.ssl || true
+    };
+  }
   this.pgNative = options.pgNative;
   this.poolOptions = options.poolOptions;
   this.logger = injectLogger(options.logger);
+
+
 
   const factory = {
     create: () => {
@@ -135,9 +151,10 @@ const PgPool = module.exports = function (options) {
 };
 
 /**
- * Execute Postgres query
+ * Send Postgres instructions
  *
- * @param {string} queryString - sql query
+ * @param {string} commandName - Name of the command
+ * @param {array}  commandArgs - Args sent to the command
  * @returns {promise} Promise resolve with the result or Error
  */
 PgPool.prototype.query = function (queryString) {
