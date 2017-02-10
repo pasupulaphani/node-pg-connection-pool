@@ -1,13 +1,12 @@
 require("should");
 const Bluebird = require("bluebird");
+const url = require("url");
 const PgPool = require("../index");
 
 describe("PgPool", () => {
 
   const options = {
-    pgOptions: {
-      host: process.env.DATABASE_HOST || "localhost"
-    }
+    pgOptions: process.env.DATABASE_URL|| "postgres://postgres:badgermushroom@192.168.33.17:5432/ps-api-development"
   };
 
   describe("acquire", () => {
@@ -79,7 +78,7 @@ describe("PgPool", () => {
         pgOptions: pgOptions
       }));
 
-      return pool.acquire().should.be.rejectedWith(Error, { name: "CONN_FAILED" });
+      return pool.acquire().should.be.rejectedWith(Error, { message: "CONN_FAILED" });
     });
 
     it("should conn timeout fail acquire connection", () => {
@@ -215,7 +214,17 @@ describe("PgPool", () => {
 
       const pool = new PgPool(options);
 
-      pool.getPgOptions().should.be.equal(options.pgOptions);
+      const params = url.parse(options.pgOptions, true);
+      const auth = params.auth.split(":");
+      const expected = {
+        user: auth[0],
+        password: auth[1],
+        host: params.hostname,
+        port: params.port,
+        database: params.pathname.split("/")[1],
+        ssl: params.query.ssl || true
+      };
+      pool.getPgOptions().should.be.eql(expected);
     });
   });
 
@@ -264,13 +273,14 @@ describe("PgPool", () => {
     it("should execute given query", () => {
 
       return pool.query("SELECT 1;")
-        .should.eventually.be.equal("1");
+        .then(res => res.rows[0]["?column?"])
+        .should.eventually.be.eql(1);
     });
 
     it("should reject when cmd failed", () => {
 
       return pool.query("SEL;")
-        .should.be.rejectedWith(/ERR wrong number of arguments for 'keys' command/);
+        .should.be.rejectedWith(/syntax error at or near/);
     });
   });
 });
