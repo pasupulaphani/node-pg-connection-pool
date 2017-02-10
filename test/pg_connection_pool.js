@@ -9,6 +9,18 @@ describe("PgPool", () => {
     pgOptions: process.env.DATABASE_URL|| "postgres://postgres@localhost:5432/test_db"
   };
 
+  describe("constructor", () => {
+
+    it("should err if pg-native is not available but asked for it", () => {
+
+      const pool = new PgPool(Object.assign({}, options, {
+        pgNative: true
+      }));
+
+      return pool.acquire().should.be.rejectedWith(Error, { message: "CONN_FAILED" });
+    });
+  });
+
   describe("acquire", () => {
 
     it("should acquire connection with valid host", () => {
