@@ -174,10 +174,9 @@ const PgPool = module.exports = function (options) {
 };
 
 /**
- * Send Postgres instructions
+ * Execute Postgres query
  *
- * @param {string} commandName - Name of the command
- * @param {array}  commandArgs - Args sent to the command
+ * @param {string} queryString - sql query
  * @returns {promise} Promise resolve with the result or Error
  */
 PgPool.prototype.query = function (queryString) {
