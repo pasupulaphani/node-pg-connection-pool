@@ -272,8 +272,15 @@ describe("PgPool", () => {
 
     it("should execute given query", () => {
 
-      return pool.query("SELECT 1;")
-        .then(res => res.rows[0]["?column?"])
+      return pool.query("SELECT 1 AS number;")
+        .then(res => res.rows[0]["number"])
+        .should.eventually.be.eql(1);
+    });
+
+    it("should execute given query with arrayValues", () => {
+
+      return pool.query("SELECT $1::int AS number;", ["1"])
+        .then(res => res.rows[0]["number"])
         .should.eventually.be.eql(1);
     });
 
