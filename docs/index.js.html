@@ -45,7 +45,7 @@ const pick = require("lodash.pick");
 const url = require("url");
 const pg = require("pg");
 
-const debug = require("debug")("simplePgPool");
+const debug = require("debug")("nodePgConnectionPool");
 
 function injectLogger (logger) {
  if (!logger) {
