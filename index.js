@@ -21,17 +21,17 @@ function injectLogger (logger) {
  }, logger);
 }
 
-const create = function (pgOptions) {
+const create = function (pgOptions, pgNative) {
   return new Promise((resolve, reject) => {
 
     let client;
-    if (pgOptions.native === true && !pg.hasOwnProperty("native")) {
+    if (pgNative === true && !pg.hasOwnProperty("native")) {
 
-      const err = new Error("pg-native is installed");
+      const err = new Error("pg-native is not installed");
       err.message = "Native bindings not available. Make sure pg-native is installed.";
       throw err;
 
-    } else if (pgOptions.native === true) {
+    } else if (pgNative === true) {
 
       client = new pg.native.Client(pgOptions);
 
@@ -60,15 +60,17 @@ const create = function (pgOptions) {
  * @param    {object}   options - Accepts properties ["name", "pgOptions", "poolOptions", "logger"]
  * @param    {string}   options.name - Name your pool
  * @param    {object}   options.pgOptions - opts from [node-postgres/wiki/Client#parameters]{@link https://github.com/brianc/node-postgres/wiki/Client#parameters}
+ * @param    {object}   options.pgNative - Use native bindings
  * @param    {object}   options.poolOptions - opts from [node-pool#createpool]{@link https://github.com/coopernurse/node-pool#createpool}
  * @param    {object}   options.logger - Inject your custom logger
  */
 const PgPool = module.exports = function (options) {
 
-  options = pick(options, ["name", "pgOptions", "poolOptions", "logger"]);
+  options = pick(options, ["name", "pgOptions", "pgNative", "poolOptions", "logger"]);
 
   this.name = options.name || `pgPool-${Math.random().toString(36).substr(2, 10)}`;
   this.pgOptions = options.pgOptions;
+  this.pgNative = options.pgNative;
   this.poolOptions = options.poolOptions;
   this.logger = injectLogger(options.logger);
 
@@ -91,7 +93,7 @@ const PgPool = module.exports = function (options) {
           return Promise.resolve(err);
         }
 
-        return create(options.pgOptions);
+        return create(options.pgOptions, options.pgNative);
       }, {
         max: 10,
         name: "factory.create",

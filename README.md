@@ -76,6 +76,15 @@ Simplistic node postgres connection pool ready can scale with generic-pool suppo
       </td>
     </tr>
     <tr>
+      <td class="name"><code>pgNative</code></td>
+      <td class="type">
+        <span class="param-type">boolean</span>
+      </td>
+      <td class="description last">
+        <p>Use the native bindings. Install <code>pg-native</code> in your app before setting this to true.</p>
+      </td>
+    </tr>
+    <tr>
       <td class="name"><code>poolOptions</code></td>
       <td class="type">
         <span class="param-type">object</span>
