@@ -1,5 +1,5 @@
 [![npm version](https://badge.fury.io/js/node-pg-connection-pool.svg)](https://badge.fury.io/js/node-pg-connection-pool)
-(https://travis-ci.org/pasupulaphani/node-pg-connection-pool.svg?branch=master)](https://travis-ci.org/pasupulaphani/node-pg-connection-pool)
+[![Build Status](https://travis-ci.org/pasupulaphani/node-pg-connection-pool.svg?branch=master)](https://travis-ci.org/pasupulaphani/node-pg-connection-pool)
 [![Coverage Status](https://coveralls.io/repos/github/pasupulaphani/node-pg-connection-pool/badge.svg?branch=master)](https://coveralls.io/github/pasupulaphani/node-pg-connection-pool?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/58780c851fe8e3003e7a83b2/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/58780c851fe8e3003e7a83b2)
 [![Gratipay donate button](https://img.shields.io/badge/gratipay-donate-yellow.svg?style=flat-square)](https://gratipay.com/simple-redis-store/)
