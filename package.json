@@ -39,7 +39,7 @@
     "generic-pool": "^3.2.0",
     "lodash.pick": "^4.4.0",
     "pg": "^7.4.0",
-    "retry-as-promised": "^2.3.2"
+    "retry-as-promised": "^3.1.0"
   },
   "devDependencies": {
     "bluebird": "^3.5.1",
